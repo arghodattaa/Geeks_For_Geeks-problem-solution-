@@ -1,0 +1,27 @@
+// Function to find square root
+// x: element to find square root
+class Solution {
+  public:
+    int floorSqrt(int n) {
+        int l = 1, r = n;
+        if(n == 0 || n == 1) return n;
+        
+        int mid = (r-l)/2;
+        while( l <= r){
+            if( mid*mid == n) return mid;
+            
+            if( mid*mid > n){
+                r = mid;
+                 mid = l+ (r-l)/2;
+            }
+            else {
+                l = mid;
+                 mid = l+ (r-l)/2;
+            }
+            if( r-l == 1) return mid;
+           
+            //mid =  (r-l)/2;
+        }
+        return mid;
+    }
+};
