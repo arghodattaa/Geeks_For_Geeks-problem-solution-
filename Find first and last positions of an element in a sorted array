@@ -1,0 +1,66 @@
+class Solution {
+  public:
+    vector<int> find(vector<int>& arr, int x) {
+        int l = 0, r = arr.size()-1;
+        int mid = ( r-l)/2  + l;
+        while( arr[mid] != x && l<= r){
+            if(arr[mid] > x) r = mid-1;
+            if( arr[mid] < x ) l = mid +1;
+            if( arr[mid] == x) break;
+             mid = ( r-l)/2  + l;
+            
+        }
+        vector<int>ans;
+        if( arr[mid] != x){
+            ans= {-1,-1};
+            //cout<<"["<<-1<<", "<<-1<<"]\n";
+            return ans;
+        }
+        int tl = 0, tr = mid;
+        int tmid =( tr-tl )/2 +tl;
+        int ans_l = -10;
+        while(tl<= tr ){
+            if( arr[tmid] > x) tr = tmid-1;
+            if( arr[tmid] <x ) tl = tmid+1;
+            if( tr == tl){
+                ans_l = tl;
+                break;
+            }
+            if( arr[tmid] == x) tr = tmid;
+             if( tl == tr-1){
+                 if( arr[tl] == x && arr[tr] == x){
+                     ans_l = tl;
+                 }
+                 else if( arr[tl] == x) ans_l = tl;
+                 else 
+                         ans_l = tr;
+                break;
+            }
+            tmid =( ( tr-tl )/2 )+tl;
+           
+        }
+         tl = mid, tr = arr.size()-1;
+         tmid = ( tr-tl )/2 +tl;
+         int ans_r = -10;
+           while(tl<= tr ){
+            if( arr[tmid] > x) tr = tmid-1;
+            if( arr[tmid] <x ) tl = tmid+1;
+            if( tr == tl){
+                ans_r = tr;
+                break;
+            }
+            if( arr[tmid] == x) tl = tmid;
+             if( tl == tr-1){
+                 if(arr[tr] == x) ans_r = tr;
+                 else ans_r = tl;
+                
+                break;
+            }
+             tmid =( tr-tl )/2 +tl;
+           
+        }
+        ans = {ans_l, ans_r};
+        return ans;
+       //cout<<"["<<ans_l<<", "<<ans_r<<"]\n";
+    }
+};
